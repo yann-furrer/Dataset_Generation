@@ -1,0 +1,98 @@
+datasetName: messageAMF
+numberOfRecords: 300000
+fields:
+  - fieldName: adresseMailExpediteur
+    fakerType: email
+  - fieldName: adresseMailDestinataire 
+    type: array
+    rules: 
+      count: 3
+    fields:
+      - fieldName: Email
+        fakerType: email
+  - fieldName: dateEnvoi
+    type: date
+    rules:
+      range:
+        start: "2020-01-01"
+        end: "2024-01-01"
+        format: "unix"
+  - fieldName: referenceMessage
+    type: "string"
+  - fieldName: objetMessage
+    type: "string"
+  - fieldName: piecesJointes
+    type: array
+    rules: 
+      count: 2
+    fields:
+      - fieldName: nomPieceJointe
+        fakerType: name
+  - fieldName: typeMessage
+    type: "string"
+    rules:
+      allowedValues: ["CLIE" , "CONS" , "SOUS", "INFO" , "MARK" , "REGL"]
+  - fieldName: lecteurs
+    type: array
+    rules: 
+      count: 2
+    fields:
+      - fieldName: obj
+        fakerType: onjet
+        fields:
+          - fieldName: adresseMail
+            fakerType: email
+          - fieldName: dateLecture
+            type: date
+            rules:
+              range:
+                start: "2020-01-01"
+                end: "2024-01-01"
+                format: "%Y-%m-%d"
+          - fieldName: __isset_bitfield
+            type: integer
+            rules:
+              range:
+                min: 1
+                max: 10  
+  - fieldName: typeEvenement
+    type: "string"
+    rules:
+      allowedValues: ["ENVOI" , "LECTURE", "SUPPRESSION", "REPONSE", "TRANSFERT", "EXPIRATION"]
+  - fieldName: idSkill
+    fakerType : id
+  - fieldName: priority
+    type: integer
+    rules:
+      range:
+        min: 0
+        max: 1
+  - fieldName: codeBoiteEmmeteur
+    type: "string"
+  - fieldName: IsRouting
+    type: boolean
+    rules:
+      range:
+        probability: 0.5
+  - fieldName: transfert
+    type : boolean
+    rules:
+      range:
+        probability: 0.5
+  - fieldName: reaffectation
+    type : boolean
+    rules:
+      range:
+        probability: 0.5
+  - fieldName: isTypeEvtInteraction
+    type : array
+  - fieldName : efs
+    type : string
+    rules:
+      allowedValues: ["01", "03"]
+  - fieldName: __isset_bitfield
+    type: integer
+    rules:
+      range:
+        min: 1
+        max: 10  

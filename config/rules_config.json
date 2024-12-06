@@ -1,0 +1,20 @@
+[
+    {
+        "conditions": {
+            "all": [
+                {
+                    "name": "typeMessage",
+                    "operator": "contains",
+                    "value": "CLIE"
+                }
+            ]
+        },
+        "actions": [
+            {
+                "name": "nothing"
+            }
+            
+        ],
+        "occurrences": 1
+    }
+]

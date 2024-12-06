@@ -1,0 +1,29 @@
+moteur_de_regles/
+│
+├── config/
+│   ├── dataset_config.yaml         # Configuration des datasets (YAML)
+│   ├── rules_config.json           # Règles métier (JSON)
+│
+├── generators/
+│   ├── yaml_generator.py           # Générateur de fichiers YAML
+│   ├── rules_generator.py          # Générateur de fichiers JSON pour les règles
+│
+├── core/
+│   ├── __init__.py                 # Initialisation du module
+│   ├── engine.py                   # Moteur principal pour exécuter les règles
+│   ├── dataset_factory.py          # Génération de datasets avec Faker
+│   ├── utils_core.py               # Transformation des données pour la classe
+│   ├── class_extension.py          # Configure les données pour le moteur de règle
+├── tests/
+│   ├── test_engine.py              # Tests unitaires pour le moteur de règles
+│   ├── test_yaml_generator.py      # Tests pour le générateur YAML
+│   ├── test_rules_generator.py     # Tests pour le générateur de règles
+│
+├── utils/
+│   ├── validation.py               # Validation des fichiers YAML et JSON
+│   ├── logger.py                   # Gestion des logs
+│
+├── .gitignore                      # Fichiers à ignorer par Git
+├── README.md                       # Documentation du projet
+├── requirements.txt                # Dépendances Python (business-rules, faker, PyYAML, etc.)
+└── main.py                         # Point d'entrée pour exécuter le moteur
