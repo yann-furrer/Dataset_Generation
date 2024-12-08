@@ -42,9 +42,8 @@ def main():
         return
     else:
         
-        nb_generated, results, total_rules_executed = execute_rules(nb_iterations, rules, data_instance, action_instance, path_config, field_name, config )
+        nb_generated, total_rules_executed = execute_rules(nb_iterations, rules, data_instance, action_instance, path_config, field_name, config, dataset_path )
         print(f"Generated {nb_generated} records.")
-        data.extend(results)
         if total_rules_executed < nb_iterations:
             print(f"Only {total_rules_executed} records generated out of {nb_iterations} requested.")
             inverse_json_rules("./config/rules_config.json", "./config/inverted_rules_config.json")

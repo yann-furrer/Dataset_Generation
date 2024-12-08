@@ -16,11 +16,25 @@ def generate_fake_data(field_name, field_type, faker_method_name, rules) -> tupl
     """
     Generate fake data for a given field based on the field type and rules
     """
-
+   
     if faker_method_name:
         faker_method = getattr(fake, faker_method_name.split('.')[-1], None)
         if faker_method:
-            return field_name, faker_method()
+                # Vérifier le type de rules
+            if isinstance(rules, set) and rules == {None}:
+                # Si c'est un ensemble contenant seulement None, ignorer les paramètres
+                valid_params = {}
+            elif isinstance(rules, dict):
+                # Filtrer les règles pour ignorer les clés ou valeurs invalides
+                valid_params = {k: v for k, v in rules.items() if k is not None and v is not None}
+            else:
+                raise TypeError("rules doit être un dictionnaire ou {None}.")
+
+        # Appeler la méthode Faker avec des paramètres (si valides)
+            try:
+                return field_name, faker_method(**valid_params)
+            except TypeError as e:
+                print(f"Erreur lors de l'appel à la méthode Faker : {e}")
     
     if field_type == 'string':
         allowed_values = rules.get('allowedValues', [])

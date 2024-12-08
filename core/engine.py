@@ -53,7 +53,7 @@ def generate_random_data(nb_iterations, yaml_config) -> dict :
     return [generate_nested_object(yaml_config) for _ in tqdm.tqdm(range(nb_iterations))]
 
 
-def execute_rules(nb_iterations, rules, variable_instance, action_instance, path_config, array_of_field_name, yaml_config) -> tuple:
+def execute_rules(nb_iterations, rules, variable_instance, action_instance, path_config, array_of_field_name, yaml_config, file_path) -> tuple:
     """Exécute les règles pour générer des données JSON conformes."""
     result = []
     total_rules_executed = 0
@@ -76,8 +76,17 @@ def execute_rules(nb_iterations, rules, variable_instance, action_instance, path
                 result.append(data)
                 count += 1
                 total_rules_executed += 1
+            # Sauvegarde des résultats par lots de 1000 pour éviter les problèmes de mémoire
+            if len(result) == 5000:
+                    append_batch_to_json_file(file_path, result)
+                    result.clear()
 
-    return len(result), result, total_rules_executed
+    # Sauvegarde des résultats si la taille est inférieur à 1000
+    if result:
+        print("passe la batch")
+        append_batch_to_json_file(file_path, result)
+                    
+    return len(result), total_rules_executed
 
 
 
@@ -122,9 +131,9 @@ def execute_rules(nb_iterations, rules, variable_instance, action_instance, path
 
 
 
-    print("Résultats générés :", len(result))
-    print("Nombre total de règles exécutées :", total_rules_executed)
-    return len(result), result, total_rules_executed
+    # print("Résultats générés :", len(result))
+    # print("Nombre total de règles exécutées :", total_rules_executed)
+    # return len(result), result, total_rules_executed
 
 
 def random_rules_execution(nb_iterations, rules, variable_instance, action_instance, path_config, array_of_field_name, yaml_config, file_path) -> tuple:
@@ -166,6 +175,7 @@ def random_rules_execution(nb_iterations, rules, variable_instance, action_insta
 
     # Sauvegarde des résultats si la taille est inférieur à 1000
     if result:
+        print("passe la batch")
         append_batch_to_json_file(file_path, result)
                     
     return len(result), total_rules_executed

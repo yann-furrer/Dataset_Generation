@@ -1,0 +1,175 @@
+datasetName: UserProfiles
+numberOfRecords: 1
+fields:
+  - fieldName: fullName
+    fakerType: name
+  - fieldName: email
+    fakerType: email
+  - fieldName: age
+    type: integer
+    rules:
+      range:
+        min: 18
+        max: 65
+  - fieldName: revenu
+    type: integer
+    rules:
+      range:
+        min: 1000
+        max: 10000
+  - fieldName: phone
+    fakerType: phone_number
+  - fieldName: address
+    fakerType: address.street_address
+  - fieldName: Company
+    fakerType: company
+  - fieldName: ObjectTest
+    type: object
+    fields:
+      - fieldName: test3
+        type: integer
+        rules:
+          range:
+            min: 1
+            max: 10
+      - fieldName: test4
+        fakerType: email
+      - fieldName: test5
+        type: object 
+        fields:
+          - fieldName: test6
+            type: integer
+            rules:
+              range:
+                min: 1
+                max: 10
+          - fieldName: test7
+            fakerType: email
+          - fieldName: test8
+            type: object
+            fields:
+              - fieldName: test9
+                type: integer
+                rules:
+                  range:
+                    min: 1
+                    max: 10
+              - fieldName: test10
+                fakerType: email
+              - fieldName: test11
+                type: object
+                fields:
+                  - fieldName: test12
+                    type: integer
+                    rules:
+                      range:
+                        min: 1
+                        max: 10
+                  - fieldName: test13
+                    fakerType: email
+                  - fieldName: test14
+                    type: object
+                    fields:
+                      - fieldName: test15
+                        type: integer
+                        rules:
+                          range:
+                            min: 1
+                            max: 10
+                      - fieldName: test16
+                        fakerType: email
+                      - fieldName: test17
+                        type: object
+                        fields:
+                          - fieldName: test18
+                            type: integer
+                            rules:
+                              range:
+                                min: 1
+                                max: 10
+                          - fieldName: test19
+                            fakerType: email
+                          - fieldName: test20
+                            type: object
+                            fields:
+                              - fieldName: test21
+                                type: integer
+                                rules:
+                                  range:
+                                    min: 1
+                                    max: 10
+                              - fieldName: test22
+                                fakerType: email
+                              - fieldName: test23
+                                type: object
+                                fields:
+                                  - fieldName: test24
+                                    type: integer
+                                    rules:
+                                      range:
+                                        min: 1
+                                        max: 10
+                                  - fieldName: test25
+                                    fakerType: email
+                                  - fieldName: test26
+                                    type: object
+                                    fields:
+                                      - fieldName: test27
+                                        type: integer
+                                        rules:
+                                          range:
+                                            min: 1
+                                            max: 10
+                                      - fieldName: test28
+                                        fakerType: email
+                                      - fieldName: test29
+                                        type: object
+                                        fields:
+                                          - fieldName: test302
+                                            type: integer
+                                            rules:
+                                              range:
+                                                min: 1
+                                                max: 10
+                                          - fieldName: NumTestArray
+                                            type: array
+                                            rules:
+                                              count: 2
+                                            fields:
+                                              - fieldName: test12222
+                                                type: integer
+                                                rules:
+                                                  range:
+                                                    min: 1
+                                                    max: 10
+                                              - fieldName: test2
+                                                fakerType: email
+                                              - fieldName: test292
+                                                type: object
+                                                fields:
+                                                  - fieldName: test30
+                                                    type: integer
+                                                    rules:
+                                                      range:
+                                                        min: 1
+                                                        max: 10
+                                                  - fieldName: test33
+                                                    type: string
+                                                    rules:
+                                                      allowedValues: ["a", "b", "c"]
+
+  - fieldName: isSubscribed
+    type: boolean
+    rules:
+      probability: 0.5
+  - fieldName: signupDate
+    type: date
+    rules:
+      range:
+        start: "2020-01-01"
+        end: "2024-01-01"
+      format: "%Y-%m-%d"
+  - fieldName: valide
+    type: boolean
+    rules:
+      probability: 0.8

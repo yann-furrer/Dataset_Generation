@@ -17,7 +17,8 @@ def inverse_json_rules(input_file_path, output_file_path):
             "equal": "not_equal",
             "not_equal": "equal",
             "contains": "contains", # does_not_contain n'existe pas dans les règles initiales
-            "does_not_contain": "contains"
+            "does_not_contain": "contains",
+            "is_true" : "is_false"
         }
         return inversion_map.get(operator, operator)
 
