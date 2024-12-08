@@ -1,16 +1,26 @@
 datasetName: messageAMF
 numberOfRecords: 6
 fields:
-  - fieldName : bool
+  - fieldName: bool
     type: boolean
     rules:
-      probability: 0.24
+      range:
+        probability: 0.5
+  - fieldName : identifiant
+    type: id
+    rules:
+      len: 15
+      includeLetters: true
+      includeNumbers: true
+      includeSpecialChars: false
+
   - fieldName : date_tt
     type: date
     rules:
       range:
-        start: "2020-01-01"
+        start: "2020-02-01"
         end: "2024-01-01"
+        format: "%Y-%m-%d"
   - fieldName : date_extraction
     type: date
     rules:
@@ -49,9 +59,14 @@ fields:
           end: "2024-01-01"
           format: "unix"
     - fieldName: referenceMessage
-      type: "string"
+      fakerType: "text"
+      rules:
+       max_nb_chars : 15
+
     - fieldName: objetMessage
-      type: "string"
+      fakerType: "text"
+      rules:
+        max_nb_chars : 15
     - fieldName: piecesJointes
       type: array
       rules: 
@@ -69,7 +84,7 @@ fields:
         count: 2
       fields:
         - fieldName: obj
-          fakerType: onjet
+          type: object
           fields:
             - fieldName: adresseMail
               fakerType: email
@@ -79,7 +94,7 @@ fields:
                 range:
                   start: "2020-01-01"
                   end: "2024-01-01"
-                  format: "%Y-%m-%d"
+                  format: "unix"
             - fieldName: __isset_bitfield
               type: integer
               rules:
@@ -100,6 +115,8 @@ fields:
           max: 1
     - fieldName: codeBoiteEmmeteur
       type: "string"
+      rules:
+        allowedValues: ["code bt test 1", "code bt test 2"]
     - fieldName: IsRouting
       type: boolean
       rules:
@@ -126,4 +143,4 @@ fields:
       rules:
         range:
           min: 1
-          max: 10  
+          max: 1

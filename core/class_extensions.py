@@ -31,9 +31,9 @@ def add_methods_to_class(cls, method_names, paths, types):
         method = method_factory(path)
 
         # Application du décorateur approprié
-        if typ == 'integer'or typ == 'date':
+        if typ == 'integer'or typ == 'date' or typ == 'float':
             method = numeric_rule_variable(method)
-        elif typ == 'string':
+        elif typ == 'string' or typ == 'id':
             method = string_rule_variable(method)
         elif typ == 'boolean':
             method = boolean_rule_variable(method)

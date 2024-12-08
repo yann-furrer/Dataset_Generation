@@ -1,4 +1,6 @@
 import os , sys
+import random
+import string
 # Ajouter le dossier racine (project/) au chemin d'import
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../")))
 #from utils.load import load_yaml_config, load_rules
@@ -133,6 +135,7 @@ def update_value_by_path(obj, path, value):
     :param path: Chemin sous forme de texte (ex. "data.test[0].ok").
     :param value: Nouvelle valeur à assigner.
     """
+    is_error = False
     current = obj
     parts = path.split('.')
     for i, part in enumerate(parts):
@@ -142,15 +145,77 @@ def update_value_by_path(obj, path, value):
             index = int(index[:-1])  # Retirer le ']' et convertir en entier
             if i == len(parts) - 1:
                 # Dernier élément, mise à jour de la valeur
-                current[key][index] = value
+                try: # le try permet de ne rien faire si la clé n'existe pas car le parent à déja été modifié
+                    current[key][index] = value
+                except Exception as e:
+                    is_error = True    
             else:
                 # Avancer dans l'objet
-                current = current[key][index]
+                try:
+                    current = current[key][index]
+                except Exception as e:
+                    is_error = True
         else:
             # Gestion des clés simples
             if i == len(parts) - 1:
                 # Dernier élément, mise à jour de la valeur
-                current[part] = value
+                try:
+                    current[part] = value
+                except Exception as e:
+                    is_error = True
+                #current[part] = value
             else:
                 # Avancer dans l'objet
                 current = current[part]
+    return is_error
+
+
+
+def generate_id(params):
+    # Définir les options par défaut
+    length = params.get('len', 15)
+    include_letters = params.get('includeLetters', True)
+    include_numbers = params.get('includeNumbers', True)
+    include_special_chars = params.get('includeSpecialChars', False)
+    start_by = params.get('stratBy', "")
+    
+    # Créer le pool de caractères
+    characters = ""
+    if include_letters:
+        characters += string.ascii_letters  # Lettres majuscules et minuscules
+    if include_numbers:
+        characters += string.digits  # Chiffres
+    if include_special_chars:
+        characters += string.punctuation  # Caractères spéciaux
+    
+    # S'assurer que le pool de caractères n'est pas vide
+    if not characters:
+        raise ValueError("Le pool de caractères est vide. Activez au moins une option pour inclure des lettres, chiffres ou caractères spéciaux.")
+    
+    # Générer la chaîne aléatoire
+    random_part = ''.join(random.choice(characters) for _ in range(length - len(start_by)))
+    
+    # Retourner l'ID complet
+    return start_by + random_part
+
+
+
+
+def parse_string(input_str):
+    """
+    Analyse une chaîne de caractères pour déterminer son type ou la retourne telle quelle si ce n'est ni un chiffre,
+    ni un booléen, ni un float.
+
+    :param input_str: La chaîne de caractères à analyser.
+    :return: Un des types suivants : None, bool, float ou la chaîne d'origine.
+    """
+    if input_str.lower() in ['none', 'null']:  # Vérifie si la chaîne correspond à None
+        return None
+    elif input_str.lower() in ['true', 'false']:  # Vérifie si la chaîne correspond à un booléen
+        return input_str.lower() == 'true'
+    try:
+        # Essaye de convertir en float
+        return float(input_str)
+    except ValueError:
+        # Si ce n'est ni None, ni booléen, ni float, retourne la chaîne telle quelle
+        return input_str

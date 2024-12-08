@@ -11,7 +11,8 @@
         },
         "actions": [
             {
-                "name": "nothing"
+                "name": "setNull",
+                "params": {"field_name" : "all", "value": "caca", "random_anomalie_number": 3, "avoid_field": ["payload", "lecteur"]}
             }
             
         ],

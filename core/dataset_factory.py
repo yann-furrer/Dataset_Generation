@@ -6,7 +6,7 @@ from datetime import datetime
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../")))
 from utils.load import load_yaml_config
 
-from utils.load import load_yaml_config
+from core.utils_core import generate_id
 
 fake = Faker()
 config_data = load_yaml_config()
@@ -40,6 +40,13 @@ def generate_fake_data(field_name, field_type, faker_method_name, rules) -> tupl
         allowed_values = rules.get('allowedValues', [])
         if allowed_values:
             return field_name, random.choice(allowed_values)
+    elif field_type == 'id':
+        
+        return field_name, generate_id(rules)
+    elif field_type == 'float':
+        min_value = rules.get('range', {}).get('min', 0)
+        max_value = rules.get('range', {}).get('max', 100)
+        return field_name, random.uniform(min_value, max_value)
     
     elif field_type == 'integer':
         allowed_values = rules.get('allowedValues', [])
@@ -50,7 +57,8 @@ def generate_fake_data(field_name, field_type, faker_method_name, rules) -> tupl
         return field_name, random.randint(min_value, max_value)
     
     elif field_type == 'date':
-
+        #print("date", rules["range"]["format"])
+        format = rules.get('range', {}).get('format', "%Y-%m-%d")
         random_date = None
         start_date = datetime.strptime(rules['range']['start'], "%Y-%m-%d")
         end_date = datetime.strptime(rules['range']['end'], "%Y-%m-%d")
@@ -58,7 +66,7 @@ def generate_fake_data(field_name, field_type, faker_method_name, rules) -> tupl
             random_date = random.randint(int(start_date.timestamp()), int(end_date.timestamp()))
         else:
             random_date = fake.date_between(start_date=start_date, end_date=end_date)
-            random_date = random_date.strftime(rules.get('format', "%Y-%m-%d"))
+            random_date = random_date.strftime(rules.get('format', format))
         return field_name, random_date
     
     elif field_type == 'boolean':
