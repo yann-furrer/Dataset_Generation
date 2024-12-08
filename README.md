@@ -17,7 +17,7 @@
 	<!-- default option, no dependency badges. -->
 </p>
 <br>
-
+<p> Build in progress</p>
 ## 🔗 Table of Contents
 
 - [📍 Overview](#-overview)
@@ -222,7 +222,7 @@ Run Dataset-generation-faker.git using the following command:
 **Using `pip`** &nbsp; [<img align="center" src="https://img.shields.io/badge/Pip-3776AB.svg?style={badge_style}&logo=pypi&logoColor=white" />](https://pypi.org/project/pip/)
 
 ```sh
-❯ python {entrypoint}
+❯ python main.py
 ```
 
 
